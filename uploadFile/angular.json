@@ -29,7 +29,9 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/xlsx-style/dist/xlsx.core.min.js"
+            ]
           },
           "configurations": {
             "production": {

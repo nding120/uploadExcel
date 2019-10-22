@@ -1,7 +1,11 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div>
+<!-- <div>
   <p>test for upload file</p>
-  
+  <xlsx-file-upload (uploadedXls)="xlsxUploadedParent($event)"> {{ uploaderContent | async }} </xlsx-file-upload>
+</div> -->
+<div>
+  <p>upload file</p>
+  <input type="file" id="xlsxFile" (click)="handleFile($event)">
 </div>
 
 <router-outlet></router-outlet>

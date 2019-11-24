@@ -5,7 +5,7 @@
 </div> -->
 <div>
   <p>upload file</p>
-  <input type="file" id="xlsxFile" (click)="handleFile($event)">
+  <input type="file" id="xlsxFile" (change)="handleFile($event)">
 </div>
-
+<app-table-work [childTable]="getAllData"></app-table-work>
 <router-outlet></router-outlet>

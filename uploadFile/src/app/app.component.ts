@@ -1,51 +1,38 @@
-import { Component } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Component, Output, EventEmitter } from '@angular/core';
 import * as XLSX from 'ts-xlsx';
 
-interface FileReaderEventTarget extends EventTarget {
-  result: string
-}
-
-interface FileReaderEvent extends Event {
-  target: FileReaderEventTarget;
-  getMessage(): string;
-}
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
+
 export class AppComponent {
-  title = 'uploadFile';
-  uploaderContent: BehaviorSubject<string> = new BehaviorSubject('please drop file in');
+  getAllData;
+
+  // @Output() passAllData= new EventEmitter<[]>();
 
   constructor() { }
 
-  // xlsxUploadedParent(result: UploadResult) {
-  //   this.uploaderContent.next(JSON.stringify(result));
-  // }
 
-
-
-
-  handleFile(e) { // 
+  handleFile(e) { //
     var files = e.target.files; // 
     var i, f;
     var newArry = [];//
     for (i = 0, f = files[i]; i != files.length; ++i) { // 
       var reader = new FileReader(); // 
       var name = f.name;
-      console.log(name);
-      reader.onload = function (e: any) { //  
+      console.log(name); // local file name
+      reader.onload = (e: any) => { //  
         var data = e.target.result;
 
         var workbook = XLSX.read(data, { type: 'binary' });
 
         /* DO SOMETHING WITH workbook HERE */
         var sheet_name_list = workbook.SheetNames;
-        console.log(sheet_name_list);
-        sheet_name_list.forEach(function (y) { /* iterate through sheets */
+        console.log(sheet_name_list); // excel 左下角“sheet1”
+        sheet_name_list.forEach((y) => { /* iterate through sheets */
           var worksheet = workbook.Sheets[y];
           console.log(y); // SHEET1
           // XLSX.utils.sheet_to_json(worksheet);
@@ -84,22 +71,24 @@ export class AppComponent {
               var a = worksheet[item].charCodeAt(0);
               var b = String.fromCharCode(a + i);
               let newItem = b + j;
-              // console.log(b, newItem);
-              if (worksheet[newItem]===undefined) {
+              console.log(b, newItem);
+              if (worksheet[newItem] === undefined) {
                 newobj.push('');
               }
               else {
                 newobj.push(worksheet[newItem].v);
                 console.log(worksheet[newItem].v);
               }
-              
+
             }
             console.log(newobj);
             newArry.push(newobj); //newArry.push([...newobj]); if {}, newArry.push({...newobj});
-            console.log(newArry);
-
+            console.log(newArry); //this is whole data
+            console.log(this);
+            this.getAllData = newArry;
+            console.log(this.getAllData);
+            // this.passAllData.emit(this.getAllData);
           }
-
         });
 
 
@@ -126,7 +115,7 @@ export class AppComponent {
       reader.readAsBinaryString(f);
     }
 
-
   }
+
 
 }

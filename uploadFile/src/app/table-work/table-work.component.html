@@ -1,0 +1,24 @@
+<!-- <p (passAllData)="fn($event)">
+  table-work works!
+</p>
+<ng-container *ngFor="let item of array; let i=index"> 
+  <p *ngIf="item['v']">label:{{item.key}}</p>
+  <div *ngIf="item['v']">
+    <button (click)="selectAll(i)">select all</button>
+    <button (click)="DeselectAll(i)">deselect all </button>
+  </div>
+</ng-container> -->
+<table>
+  <thead>
+    <th *ngFor="let item of tableHead; let i=index">{{item}}<button (click)="sort(i)">..</button></th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of tableData">
+      <td *ngFor="let i of item">{{i}}</td>
+      <!-- <td>{{item.name}}</td>
+      <td>{{item.age}}</td>
+      <td>{{item.gender}}</td>
+      <td>{{item.middle}}</td> -->
+    </tr>
+  </tbody>
+</table>
